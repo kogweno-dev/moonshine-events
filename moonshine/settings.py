@@ -77,9 +77,9 @@ LOGOUT_REDIRECT_URL = "home"
 # Business details shown across the site (edit these in one place)
 BUSINESS = {
     "name": "Moonshine Events",
-    "phone_1": "0700 000 000",
-    "phone_2": "0711 111 111",
-    "whatsapp": "254700000000",
+    "phone_1": "0723632189",
+    "phone_2": "0710803151",
+    "whatsapp": "254723632189",
     "email": "info@moonshineevents.co.ke",
     "address": "Nakuru Town, Nakuru County, Kenya",
     "hours": "Mon – Sat, 8:00am – 6:00pm",

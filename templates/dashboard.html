@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{% if user.is_staff %}Enquiries{% else %}My enquiries{% endif %} | Moonshine Events{% endblock %}
+{% block content %}
+<section class="section section-tint">
+  <div class="wrap">
+    <header class="sec-head left">
+      <h2>{% if user.is_staff %}All enquiries{% else %}Hello, {{ user.username }}{% endif %}</h2>
+      <p>{% if user.is_staff %}Newest first. Change status or edit content in the <a class="textlink" href="/admin/">admin</a>.{% else %}Your requests to Moonshine Events and where each one stands.{% endif %}</p>
+    </header>
+    {% if stats %}
+    <ul class="stat-row">{% for label, n in stats %}<li><strong>{{ n }}</strong>{{ label }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% if enquiries %}
+    <div class="table-wrap">
+      <table class="tbl">
+        <thead><tr><th>Received</th>{% if user.is_staff %}<th>Name</th><th>Phone</th>{% endif %}<th>Event</th><th>Date</th><th>Guests</th><th>Catering</th><th>Status</th></tr></thead>
+        <tbody>
+        {% for e in enquiries %}
+          <tr>
+            <td>{{ e.created|date:"j M Y" }}</td>
+            {% if user.is_staff %}<td>{{ e.name }}</td><td>{{ e.phone }}</td>{% endif %}
+            <td>{{ e.get_event_type_display }}</td>
+            <td>{{ e.event_date|date:"j M Y"|default:"Not set" }}</td>
+            <td>{{ e.guests|default:"Not set" }}</td>
+            <td>{{ e.catering_package|default:"None" }}</td>
+            <td><span class="status s-{{ e.status }}">{{ e.get_status_display }}</span></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty">
+      <p>You have not sent an enquiry yet.</p>
+      <a class="btn btn-navy" href="{% url 'home' %}#contact">Request a free quote</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

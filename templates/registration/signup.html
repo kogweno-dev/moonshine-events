@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Create an account | Moonshine Events{% endblock %}
+{% block content %}
+<section class="section section-tint auth">
+  <div class="wrap">
+    <div class="card auth-card">
+      <h2>Create an account</h2>
+      <p>Track your enquiries and quotations in one place.</p>
+      <form method="post" class="form" novalidate>
+        {% csrf_token %}
+        {% for f in form %}
+        <div class="field">
+          <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+          {{ f }}
+          {% if f.help_text %}<span class="hint">{{ f.help_text|safe }}</span>{% endif %}
+          {% for e in f.errors %}<span class="err">{{ e }}</span>{% endfor %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-navy" type="submit">Create account</button>
+      </form>
+      <p class="fine">Already registered? <a class="textlink" href="{% url 'login' %}">Log in</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}
